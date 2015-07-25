@@ -1,0 +1,49 @@
+- hosts: all
+  sudo: yes
+
+  vars:
+    datadir: /srv/fedora-atomic
+    outputdir: "{{ datadir }}/output"
+    inboxdir: /srv/fedora-atomic/inbox
+
+  tasks:
+    - name: copy EPEL 7 rpm
+      action: copy src=files/epel-release-7-2.noarch.rpm
+              dest=/root/epel-release.rpm
+              owner=root group=root
+
+    - yum: name=/root/epel-release.rpm state=present
+
+    - name: add CentOS 7 Virt Testing
+      action: copy src=files/centos-7-virt-testing.repo
+              dest=/etc/yum.repos.d/centos-7-virt-testing.repo
+              owner=root group=root
+
+    - name: add CentOS 7 Atomic Testing
+      action: copy src=files/centos-7-atomic-testing.repo
+              dest=/etc/yum.repos.d/centos-7-atomic-testing.repo
+              owner=root group=root
+
+    - yum: name={{ item }} state=present
+      with_items:
+        - git
+        - ostree
+        - rpm-ostree
+        - rpm-ostree-toolbox
+        - docker
+
+    - service: name=docker.socket enabled=yes state=started
+
+    - file: path={{ inboxdir }}
+            owner=root group=rpmostreecompose mode=775 state=directory
+
+    - file: path={{ outputdir }}/repo
+            owner=root group=root mode=755 state=directory
+
+    - command: /usr/bin/ostree init --repo={{ outputdir }}/repo --mode=archive-z2
+      args:
+        creates: "{{ outputdir }}/repo/objects"
+
+    - yum: name={{ item }} state=present
+      with_items:
+        - httpd

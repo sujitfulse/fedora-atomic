@@ -1,0 +1,8 @@
+[fedora-21]
+name=Fedora 21 - $basearch
+failovermethod=priority
+#baseurl=http://download.fedoraproject.org/pub/fedora/linux/releases/20/Everything/$basearch/os/
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-21&arch=$basearch
+enabled=0
+metadata_expire=7d
+gpgcheck=0

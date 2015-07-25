@@ -1,0 +1,23 @@
+- hosts: all
+
+  tasks:
+    - yum: name={{ item }} state=present
+      with_items:
+        - oz
+
+    - name: check libvirt qemu network
+      command: grep -q 10.88.88 /etc/libvirt/qemu/networks/default.xml
+      register: libvirt_is_10_88
+      ignore_errors: True
+
+    - service: name=libvirtd state=stopped
+      when: libvirt_is_10_88|failed
+
+    - name: Change libvirt default network to 10.88.88
+      action: copy src=files/libvirt-network.xml
+              dest=/etc/libvirt/qemu/networks/default.xml
+              mode=0644
+      when: libvirt_is_10_88|failed
+
+    - service: name=libvirtd state=started
+      when: libvirt_is_10_88|failed

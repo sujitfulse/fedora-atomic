@@ -1,0 +1,6 @@
+[centos-7-virt-testing]
+name=CentOS 7 Virt Testing
+baseurl=http://cbs.centos.org/repos/virt7-testing/x86_64/os/
+enabled=1
+metadata_expire=1h
+gpgcheck=0

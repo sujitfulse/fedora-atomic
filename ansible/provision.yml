@@ -1,0 +1,34 @@
+- hosts: walters-f20-atomic-local
+  sudo: yes
+
+  vars:
+    datadir: /srv/fedora-atomic
+    outputdir: "{{ datadir }}/output"
+    inboxdir: /srv/fedora-atomic/inbox
+
+  tasks:
+    - name: add f21 repo
+      action: copy src=files/fedora-21.repo
+              dest=/etc/yum.repos.d/fedora-21.repo
+              owner=root group=root
+
+    - yum: name={{ item }} state=present
+      with_items:
+        - mock
+        - fedora-release-rawhide
+
+    - yum: name={{ item }} state=latest enablerepo=rawhide
+      with_items:
+        - git
+        - ostree
+        - rpm-ostree-toolbox
+
+    - file: path={{ inboxdir }}
+            owner=root group=rpmostreecompose mode=775 state=directory
+
+    - file: path={{ outputdir }}/repo
+            owner=root group=root mode=755 state=directory
+
+    - command: /usr/bin/ostree init --repo={{ outputdir }}/repo --mode=archive-z2
+      args:
+        creates: "{{ outputdir }}/repo/objects"

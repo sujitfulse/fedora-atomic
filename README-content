@@ -1,0 +1,7 @@
+This directory contains an OSTree repository that is composed from
+Fedora RPM content.  The content contains an RPM database, and given a
+package name, version, and release, you can find the source code from:
+
+http://koji.fedoraproject.org/
+
+

@@ -1,0 +1,8 @@
+[fedora-22]
+name=Fedora 22 $basearch
+#baseurl=http://download.fedoraproject.org/pub/fedora/linux//development/22/$basearch/os/
+#baseurl=file:///srv/repomirror/fedora-22
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-22&arch=$basearch
+enabled=0
+gpgcheck=0
+metadata_expire=1d
