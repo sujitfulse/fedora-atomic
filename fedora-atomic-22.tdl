@@ -3,7 +3,7 @@
     <os>
         <name>Fedora</name>
         <version>22</version>
-        <arch>x86_64</arch>
+        <arch>ppc64le</arch>
         <install type='url'>
             <url>https://dl.fedoraproject.org/pub/fedora/linux/releases/22/Everything/x86_64/os/</url>
         </install>
