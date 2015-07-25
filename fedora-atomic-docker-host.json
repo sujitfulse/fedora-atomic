@@ -1,5 +1,5 @@
 {
-    "ref": "fedora-atomic/f22/x86_64/docker-host",
+    "ref": "fedora-atomic/f22/ppc64le/docker-host",
 
     "repos": ["fedora-22"],
 
@@ -22,7 +22,7 @@
     "check-passwd": { "type": "file", "filename": "passwd" },
     "check-groups": { "type": "file", "filename": "group" },
 
-    "packages": ["atomic",
+    "packages": ["docker-selinux","docker","atomic",
 		 "glibc", "nss-altfiles", "shadow-utils",
 		 "fedora-release",
 		 "dracut-config-generic", "kernel",
@@ -65,7 +65,6 @@
 		 "cockpit-docker",
 		 "kubernetes", "etcd",
 		 "flannel",
-		 "docker",
 		 "iscsi-initiator-utils",
 		 "python-docker-py"],
 
