@@ -5,7 +5,7 @@
         <version>22</version>
         <arch>ppc64le</arch>
         <install type='url'>
-            <url>https://dl.fedoraproject.org/pub/fedora/linux/releases/22/Everything/ppc64le/os/</url>
+            <url>https://archive.fedoraproject.org/pub/fedora-secondary/releases/22/Server/ppc64le/os/</url>
         </install>
         <rootpw>ewwwwwww</rootpw>
     </os>
